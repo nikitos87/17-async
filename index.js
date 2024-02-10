@@ -36,7 +36,7 @@ const createNewPost = async () => {
 
 createNewPost();
 */
-
+/*
 // Задание #2
 const TODOS_URL = "https://jsonplaceholder.typicode.com/todos";
 // const getTodosByIds = (ids) => {
@@ -68,3 +68,40 @@ const getTodosByIdsAsync = async (ids) => {
 
 // getTodosByIds([43, 21, 55, 100, 10]);
 getTodosByIdsAsync([43, 21, 55, 100, 10]);
+*/
+
+// Задание #3
+
+const ALBUMS_URL = "https://jsonplaceholder.typicode.com/albums";
+
+const setLoader = () => {
+  const loader = document.querySelector("#loader");
+  if (loader.hasAttribute("hidden")) {
+    loader.removeAttribute("hidden");
+  } else {
+    loader.setAttribute("hidden", "");
+  }
+};
+
+function displayAlbum(albumName) {
+  const dataContainer = document.querySelector("#data-container");
+  const albumElement = document.createElement("li");
+  albumElement.textContent = albumName;
+  dataContainer.append(albumElement);
+}
+
+const renderAlbums = async () => {
+  try {
+    setLoader();
+    const response = await fetch(`${ALBUMS_URL}`);
+    const data = await response.json();
+    // console.log(data);
+    data.forEach((album) => displayAlbum(album.title));
+  } catch (error) {
+    console.log("Произошла ошибка в получении данных об альбомах...");
+  } finally {
+    setLoader();
+  }
+};
+
+renderAlbums();
